@@ -50,7 +50,8 @@ echo "Versión de Apache: $(apache2 -v | head -n 1)"
 echo "Versión de MySQL: $(mysql --version)"
 echo " Versión de PHP: $(php -v | head -n 1)"
 echo ""
-
+echo "Accede a: http://$(hostname -I | awk '{print $1}')"
+echo "Info PHP: http://$(hostname -I | awk '{print $1}')/info.php"
 echo ""
 echo "Hay que ejecutar 'sudo mysql_secure_installation'"
 
