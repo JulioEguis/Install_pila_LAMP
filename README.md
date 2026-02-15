@@ -1,13 +1,12 @@
 Instalación pila LAMP
-Scripts en bash para instalar lamp (linux, apache, mysql, php) en Linux de forma automática.
+Scripts en bash para instalar LAMP (linux, apache, mysql, php) en Linux de forma automática.
 
-Al principio tenía miedo de hacer scripts en bash y automatizar instalaciones, no sabía si iba a romper algo o si funcionaría bien. Así que empecé probando todo en un entorno de laboratorio con máquinas virtuales. Después de varias pruebas y ajustes, estos scripts se convirtieron en parte de mi día a día para montar servidores web rápidamente
+Al principio tenía miedo de hacer scripts en bash y automatizar instalaciones, no sabía si iba a romper algo o si funcionaría bien. Así que empecé probando todo en un entorno de laboratorio con mv. Después de varias pruebas y corregir errores, este scripts se convirtieo en parte de mi día a día para montar un servidor web apache y tambien nginx
 
-El script principal (instalacion_pila_lamp.sh) instala automáticamente:
-
-apache 2.4
-mysql 8.0
-php 8.1 con módulos básicos (mysql, curl, gd, mbstring, xml, zip)
+El script principal (instalacion_pila_lamp.sh) instala:
+- apache 2.4
+- mysql 8.0
+- php 8.1 con módulos básicos (mysql, curl, gd, mbstring, xml, zip)
 
 Si quieres clonarlo
 git clone https://github.com/JulioEguis/Install_pila_LAMP.git
@@ -21,46 +20,40 @@ sudo ./instalacion_pila_lamp.sh
 
 El script hace lo siguiente:
 
-actualiza el sistema
-instala apache y lo configura
-instala mysql
-instala php y sus módulos
-configura apache para que use php
-crea archivo de prueba en /var/www/html/info.php
+- actualizo paquetes
+- instala apache y lo configura
+- instala mysql
+- instala php y sus módulos
+- configura apache para que use php
+- crea archivo de prueba en /var/www/html/info.php (Ojo con el archivo info.php muestra información sensible del servidor, ni de broma dejarlo, bórrarlo en producción)
 
 Verificar la instalación
-Abre el navegador y ve a:
 
 http://localhost - debería ver la página por defecto de apache
 http://localhost/info.php - debería ver la info de php que hemos intalado
 
-Y si quieres ver las versiones que hemos instalado
+Ver las versiones instaladas
 apache2 -v
 mysql --version
 php -v
 
-Y importante asegurar mysql, esto te permite poner contraseña al root de mysql y eliminar usuarios de prueba.
+Asegurar mysql, esto te permite poner contraseña al root de mysql y eliminar usuarios de prueba.
 sudo mysql_secure_installation
 
 Problema tipico de puerto 80 ocupado
 Este fue unos de los primeros problemsa que me encontré. Si apache no arranca es porque algo ya está usando el puerto 80.
-Ver qué ocupa el puerto:
-bashsudo lsof -i :80
-Liberar el puerto:
-bashsudo fuser -k 80/tcp
-Arrancar apache:
-bashsudo systemctl start apache2
+Ver qué ocupa el puerto -> sudo lsof -i :80
+Liberar el puerto -> sudo fuser -k 80/tcp
+Arrancar apache -> sudo systemctl start apache2
 
-
-Ojo con el archivo info.php muestra información sensible del servidor, ni de broma dejarlo, bórrarlo en producción
 mysql se instala sin contraseña de root, ejecuta mysql_secure_installation
 Y hay consideraar configurar el firewall para permitir solo los puertos necesarios
 
 Lo que aprendí
 
-siempre probar scripts en entornos de laboratorio primero
+Que siempre probar scripts en entornos de laboratorio primero
 bash se puede entender y hacer muchas cosas, que ojala pueda seguir aprendiendo
-automatizar tareas repetitivas quita muchas horas de raton y teclado
+automatizar tareas repetitivas quita muchas horas de raton y teclado y eres más productivo en el equipo
 y saber que siempre nos podemos encontrar con errores
 
 
