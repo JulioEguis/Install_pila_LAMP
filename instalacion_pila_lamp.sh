@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de instalación de LAMP en Linux
-echo "Instalador de LAMP para Ubuntu"
+echo "Instalador de LAMP"
 
 # Verificar si se ejecuta como root
 if [ "$EUID" -ne 0 ]; then 
@@ -19,8 +19,8 @@ apt install apache2 -y
 systemctl enable apache2
 systemctl start apache2
 
-# Instalar MySQL
-echo "Instalando MySQL..."
+# Instalar Mysql
+echo "Instalando Mysql..."
 apt install mysql-server -y
 systemctl enable mysql
 systemctl start mysql
