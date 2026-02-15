@@ -9,39 +9,39 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Actualizar sistema y que no pida la confirmación
+# actualizar sistema y que no pida la confirmación
 echo "Actualizando el sistema..."
 apt update && apt upgrade -y
 
-# Instalar Apache
+# instalar Apache
 echo "Instalando Apache..."
 apt install apache2 -y
 systemctl enable apache2
 systemctl start apache2
 
-# Instalar Mysql
+# instalar Mysql
 echo "Instalando Mysql..."
 apt install mysql-server -y
 systemctl enable mysql
 systemctl start mysql
 
-# Instalar PHP con la instalaciones basicas y con -y para que confirme todo
+# instalar PHP con la instalaciones basicas y con -y para que confirme todo
 echo "Instalando PHP y módulos..."
 apt install php libapache2-mod-php php-mysql php-cli php-curl php-gd php-mbstring php-xml php-zip -y
 
-# Configurar Apache y que cargue el modulo de php que instalamos
+# configurar Apache y que cargue el modulo de php que instalamos
 echo "Configurando Apache..."
 a2enmod php
 systemctl restart apache2
 
-# Crear archivo de prueba
+# crear archivo de prueba
 cat > /var/www/html/info.php << 'EOF'
 <?php
 phpinfo();
 ?>
 EOF
 
-# Información final de la instalación
+# información final de la instalación
 echo ""
 echo "*************************"
 echo "LAMP instalado correctamente"
